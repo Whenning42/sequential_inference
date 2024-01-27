@@ -2,7 +2,7 @@ import random
 from abc import ABC
 from typing import Any, NewType, Optional, Union
 
-import sets
+from synth_gen import sets
 
 letter = NewType("letter", str)
 
@@ -212,10 +212,3 @@ class Terminate(Predicate):
     @staticmethod
     def is_terminal():
         return True
-
-
-# Walk Grammar:
-#   U:      SelList(n):List
-#   List:   SelItem(n):Item | SelWithLength(n):List | SelWithLetterAtPos(n, L):List
-#   Item:   End | SelLetter(n):Letter
-#   Letter: End

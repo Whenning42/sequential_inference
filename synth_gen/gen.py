@@ -1,7 +1,8 @@
 import random
+from dataclasses import dataclass
 from typing import Any, Optional
 
-import predicates
+from synth_gen import predicates
 
 # We generate questions via a random walk through the predicate types allowed by this
 # grammar:
@@ -16,6 +17,7 @@ import predicates
 grammar = {
     None: [predicates.SelectList],
     list[str]: [
+        predicates.Terminate,
         predicates.SelectItem,
         predicates.SelectWithLength,
         predicates.SelectWithLetterAtPos,
@@ -34,6 +36,7 @@ class Node:
         self.query = random.choice(self.domain)
         self.prompt = predicate.prompt(self.query)
         self.value = predicate.eval(self.parent_value(), self.query)
+        self.depth = 1 if self.parent is None else self.parent.depth + 1
 
     @property
     def terminal(self) -> bool:
@@ -82,6 +85,27 @@ def StepFrom(n: Node):
         if Allowlist(next_node, n):
             break
     return next_node
+
+
+@dataclass(frozen=True)
+class Question:
+    prompt: str
+    answer: str
+    reasoning: str
+    depth: int
+
+
+def generate_ds(n: int) -> list[Question]:
+    questions = []
+    for i in range(n):
+        random.seed(i)
+        n = Node(predicates.SelectList, None)
+        while not n.terminal:
+            n = StepFrom(n)
+        questions.append(
+            Question(n.full_prompt(), n.value, n.full_answer(), n.depth - 1)
+        )
+    return questions
 
 
 def walk():
