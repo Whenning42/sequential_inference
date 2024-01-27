@@ -1,6 +1,6 @@
-A NLP QA dataset generator simple staged inference questions. i.e. those questions that
-require little reasoning or world knowledge to answer, but may require large working
-memory or effective use of scratch memory.
+A NLP QA dataset generator for simple staged inference questions. i.e. those questions
+that require little reasoning or world knowledge to answer, but may require large
+working memory or effective use of scratch memory.
 
 Examples:
 ```
