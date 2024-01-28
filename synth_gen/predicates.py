@@ -1,6 +1,6 @@
 import random
 from abc import ABC
-from typing import Any, NewType, Optional, Union
+from typing import Any, NewType, Optional, Union, cast
 
 from synth_gen import sets
 
@@ -31,7 +31,7 @@ class Predicate(ABC):
         raise NotImplementedError
 
     @staticmethod
-    def eval(query, set) -> Union[list[str], str, letter]:
+    def eval(query, set) -> Union[list[str], str, letter, int]:
         raise NotImplementedError
 
     @staticmethod
@@ -74,7 +74,7 @@ class SelectLetter(Predicate):
 
     @staticmethod
     def eval(val: str, n: int) -> letter:
-        return val[n - 1]
+        return cast(letter, val[n - 1])
 
     @staticmethod
     def domain(val: str) -> list[int]:
@@ -97,7 +97,7 @@ class SelectItem(Predicate):
         return val[n - 1]
 
     @staticmethod
-    def domain(val: list[str]) -> int:
+    def domain(val: list[str]) -> list[int]:
         return list(range(1, len(val) + 1))
 
 
@@ -191,7 +191,7 @@ class Terminate(Predicate):
         return ""
 
     @staticmethod
-    def eval(val: str, none_arg: None) -> None:
+    def eval(val: str, none_arg: None) -> str:
         return val
 
     @staticmethod
