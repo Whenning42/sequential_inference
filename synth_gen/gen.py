@@ -102,9 +102,8 @@ def generate_ds(n: int) -> list[Question]:
         n = Node(predicates.SelectList, None)
         while not n.terminal:
             n = StepFrom(n)
-        questions.append(
-            Question(n.full_prompt(), n.value, n.full_answer(), n.depth - 1)
-        )
+        question = "Q: What is/are " + n.full_prompt() + "? A:"
+        questions.append(Question(question, n.value, n.full_answer(), n.depth - 1))
     return questions
 
 
