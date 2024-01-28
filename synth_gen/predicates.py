@@ -49,17 +49,6 @@ class SelectList(Predicate):
     def out_type():
         return list[str]
 
-    def __init__(
-        self,
-        set_prompts: list[str],
-        set_values: list[list[str]],
-        selection: Optional[int],
-    ):
-        if selection is None:
-            selection = random.randint(0, len(set_prompts))
-        self.prompt = set_prompts[selection]
-        self.vals = set_values[selection]
-
     @staticmethod
     def prompt(i: int) -> str:
         return sets.set_prompts[i]
