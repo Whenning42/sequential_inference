@@ -24,7 +24,7 @@ prompts = [
         "Given this set of values: {values} what's the {extremum} value that is {mod_str}?",
     ),
 ]
-extra_inst = " Answer with just the value."
+extra_inst = " Answer is:"
 
 
 class Extremum(Enum):
