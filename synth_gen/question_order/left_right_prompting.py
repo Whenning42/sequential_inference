@@ -70,13 +70,13 @@ def reject_q(extremum: str, modulus: Optional[int], values: list[int]):
         return True
 
 
-def generate_ds():
+def generate_ds(n=50):
     MAX_VAL = 100
     questions = []
-    for depth in range(2):
-        for num_values in range(10, 41, 10):
+    for depth in range(1, 2):
+        for num_values in range(10, 81, 10):
             for on_right in [False, True]:
-                for seed in range(50):
+                for seed in range(n):
                     random.seed(seed)
 
                     prompt_template = prompts[depth][int(on_right)]
