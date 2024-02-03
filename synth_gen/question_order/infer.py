@@ -26,6 +26,7 @@ def infer(prompts: list[str]) -> str:
 def get_value(response: str) -> Optional[int]:
     a = response.strip()
     a = a.strip()
+    a = a.strip(".")
     try:
         return int(a)
     except ValueError:
